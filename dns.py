@@ -138,12 +138,7 @@ def extract_question_domain(data):
             break
 
     query_type = data[query_type_pos - 2: query_type_pos]
-    # print(f'  bytes after query_type_pos = {query_type_pos} =>> {data[query_type_pos:]}')
-    # print(f'  value for query_type: {query_type}')
-    # print(f'  plus 2 bytes before ^^ {data[query_type_pos - 2 : query_type_pos+2]}')
-    # print(f'  new: {data[query_type_pos - 2 : query_type_pos]}')
-    # print()
-    # print(domain_parts)
+
     return domain_parts, query_type
 
 
@@ -247,13 +242,9 @@ def get_dns_question(domain_parts, query_type):
         return name_bytes + (0).to_bytes(1, byteorder=ENDIAN)
 
 
-    # q_bytes = b''
     q_bytes = query_name()
 
     q_bytes += (QUERY_TYPES[query_type]).to_bytes(2, byteorder=ENDIAN)
-    # if query_type == 'a':
-    #     # q_bytes += (TYPES[query_type]).to_bytes(2, byteorder=ENDIAN)
-    #     q_bytes += (1).to_bytes(2, byteorder=ENDIAN)
 
     # 2 bytes to mark the query class -- almost always "IN" -> Internet
     # (always for this server)
@@ -293,7 +284,6 @@ def get_dns_body(records, query_type, domain_parts):
 def response(query):
     dns_header = create_header(query)
 
-    # checked !!
     # 12 since the header is 12 bytes
     record_info = get_A_records(query[12:])
     records, query_type, domain_parts = record_info
@@ -312,7 +302,6 @@ def response(query):
 
 
 if __name__ == '__main__':
-    # ZONE_DATA = load_zones()
     ip, port = '127.0.0.1', 53
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -325,40 +314,6 @@ if __name__ == '__main__':
         print(type(query))
         print()
 
-        # sock.sendto(b'hello world', addr)
         r = response(query)
         sock.sendto(r, addr)
 
-
-
-# def extract_question_domain(data):
-#     seen_chars = 0
-#     y = 1
-#     expected_len = 0
-#     domain_string = ''
-#     domain_parts = []
-#     new_byte = True
-#     for byte in data:
-#         if not new_byte:
-#             if byte != 0:
-#                 domain_string += chr(byte)
-#             seen_chars += 1
-#             if seen_chars == expected_len:
-#                 domain_parts.append(domain_string)
-#                 domain_string = ''
-#                 new_byte = True
-#                 seen_chars = 0
-#             if byte == 0:
-#                 # print(domain_string)
-#                 # domain_parts.append(domain_string)
-#                 break
-#         else:
-#             new_byte = False
-#             expected_len = byte
-#         # seen_chars += 1
-#         y += 1
-#         # print(domain_parts)
-
-#     query_type = data[y+1 : y+3]
-#     # print(domain_parts)
-#     return domain_parts, query_type
