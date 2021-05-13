@@ -1,0 +1,23 @@
+{
+    "$origin": "rm-fr.ca.",
+    "$ttl": 3600,
+    "soa": {
+        "mname": "dns1.registrar-servers.com.",
+        "rname": "hostmaster.registrar-servers.com.",
+        "serial": "1620602206",
+        "refresh": 43200,
+        "retry": 3600,
+        "expire": 604800,
+        "minimum": 3601
+    },
+    "ns": [
+        { "host": "dns1.registrar-servers.com." },
+        { "host": "dns2.registrar-servers.com." }
+    ],
+    "a": [
+        { "name": "@", "ttl": 3600, "value": "192.64.119.3" },
+        { "name": "@", "ttl": 3600, "value": "255.255.0.0" },
+        { "name": "@", "ttl": 3600, "value": "127.0.0.1" },
+        { "name": "@", "ttl": 3600, "value": "127.0.0.1" }
+    ]
+}
