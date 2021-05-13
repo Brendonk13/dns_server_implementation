@@ -229,28 +229,23 @@ def create_header(query):
 
 
 def get_dns_question(domain_parts, query_type):
-    def query_name():
-        # format: length of domain part, domain part, repeat .... \x0 to mark termination of domain name
-        name_bytes = b''
-        for domain_part in domain_parts:
-            # mark the length of the part
-            name_bytes += bytes([len(domain_part)])
-            # add the characters
-            for char in domain_part:
-                name_bytes += ord(char).to_bytes(1, byteorder=ENDIAN)
-        # mark termination of the domain_name
-        return name_bytes + (0).to_bytes(1, byteorder=ENDIAN)
+    # format: length of domain part, domain part, repeat .... \x0 to mark termination of domain name
+    query_name = b''
+    for domain_part in domain_parts:
+        # mark the length of the part
+        query_name += bytes([len(domain_part)])
+        # add the characters
+        for char in domain_part:
+            query_name += ord(char).to_bytes(1, byteorder=ENDIAN)
+    # mark termination of the domain_name
+    query_name += (0).to_bytes(1, byteorder=ENDIAN)
 
-
-    q_bytes = query_name()
-
-    q_bytes += (QUERY_TYPES[query_type]).to_bytes(2, byteorder=ENDIAN)
+    query_type = (QUERY_TYPES[query_type]).to_bytes(2, byteorder=ENDIAN)
 
     # 2 bytes to mark the query class -- almost always "IN" -> Internet
     # (always for this server)
-    q_bytes += (1).to_bytes(2, byteorder=ENDIAN)
-    return q_bytes
-    # print(q_bytes)
+    query_class = (1).to_bytes(2, byteorder=ENDIAN)
+    return query_name + query_type + query_class
 
 
 def record_to_bytes(domain_parts, query_type, record_ttl, record_value):
