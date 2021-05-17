@@ -1,0 +1,6 @@
+
+"a": [
+    { "name": "@", "ttl": 3600, "value": "192.64.119.3" },
+]
+
+    -- "@" denotes the current origin

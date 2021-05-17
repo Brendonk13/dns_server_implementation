@@ -1,0 +1,2 @@
+Implementing support for types of records:
+    ctrl-f  ==>  "XXXX" RDATA format

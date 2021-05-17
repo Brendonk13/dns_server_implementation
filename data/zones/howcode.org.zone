@@ -14,6 +14,18 @@
         { "host": "dns1.registrar-servers.com." },
         { "host": "dns2.registrar-servers.com." }
     ],
+    "null": [
+        { "bs" : "yo_this_bs" }
+    ],
+    "cname": [
+        { "name": "@", "ttl": 3600, "value": "192.64.119.3" }
+    ],
+    "txt": [
+        { "name": "@", "ttl": 3600, "value": "192.64.119.3" }
+    ],
+    "hinfo": [
+        { "name": "@", "ttl": 3600, "value": "192.64.119.3" }
+    ],
     "a": [
         { "name": "@", "ttl": 3600, "value": "192.64.119.3" },
         { "name": "@", "ttl": 3600, "value": "255.255.0.0" },
