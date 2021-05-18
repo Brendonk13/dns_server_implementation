@@ -1,3 +1,8 @@
+
+"""
+This file contains common data for programs to import
+"""
+
 ENDIAN = 'big'
 
 # note that I only implemented requests for A records currently

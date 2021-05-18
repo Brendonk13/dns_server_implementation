@@ -13,8 +13,8 @@ def concat_to_byte(*args):
 def extract_bits(byte, start_bit, end_bit):
     extracted = ''
     for bit in range(start_bit, end_bit):
-        # iter 0: concat leftmost        bit from byte1
-        # iter 1: concat second leftmost bit from byte1
+        # iter 0: concat leftmost        bit from byte
+        # iter 1: concat second leftmost bit from byte
         # ...
         extracted += str(ord(byte) & (1 << bit))
     return extracted
@@ -26,7 +26,6 @@ def flag_byte_1(query_byte):
 
     # op_code is set by the originator of a query and copied into the response
     op_code = extract_bits(query_byte, 1, 5)
-
 
     # 1 if the response is coming from a authoritative DNS server
     #   -- the response is coming from the server which owns the domain
@@ -52,13 +51,15 @@ def flag_byte_1(query_byte):
 
 
 def flag_byte_2(query_byte):
-    # recursion_available
+    # recursion_available: think this is set to 1 if this server is capable
+    # of making recursived queries to other dns servers
     recursion_available = '0'
 
     # Z: reserved bits for future usage. must be zero in all queries and responses
     Z = '000'
 
     # response_code: indicates whether the query was successful
+    # I return success for every query
     response_code = '0000'
 
     return concat_to_byte(recursion_available, Z, response_code)

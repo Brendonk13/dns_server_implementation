@@ -6,11 +6,6 @@ from data.prog_data import ENDIAN, QUERY_TYPES
 # DNS SPECIFICATION: https://www.ietf.org/rfc/rfc1035.txt
 
 
-"""
-Todo:
--- setup actual website then add in info for that zone file !!
-
-"""
 
 class DnsQuestion:
 
@@ -30,7 +25,7 @@ class DnsQuestion:
 
         query_name = b''
         for domain_part in domain_parts:
-            # mark the length of the part
+            # mark the length of the https://github.com/Brendonk13/dns_server_implementationpart
             query_name += bytes([len(domain_part)])
             # add the characters
             for char in domain_part:
