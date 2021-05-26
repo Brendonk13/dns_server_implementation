@@ -1,6 +1,6 @@
 import socket
-from header_helpers import *
-from zone_helpers import *
+from helpers.header_helpers import *
+from helpers.zone_helpers import *
 from data.prog_data import ENDIAN, QUERY_TYPES
 
 # DNS SPECIFICATION: https://www.ietf.org/rfc/rfc1035.txt
